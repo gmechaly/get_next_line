@@ -58,19 +58,21 @@ To use it in your code:
 #include <fcntl.h>
 #include <stdio.h>
 
-int main(void)
+int	main(int argc, char **argv)
 {
-    int     fd;
-    char    *line;
+	int		fd;
+	char	*c;
 
-    fd = open("test.txt", O_RDONLY);
-    while ((line = get_next_line(fd)))
-    {
-        printf("%s", line);
-        free(line);
-    }
-    close(fd);
-    return (0);
+	(void) argc;
+	fd = open(argv[1], O_RDONLY);
+	c = get_next_line(fd);
+	while (c != NULL)
+	{
+		printf("%s", c);
+		free(c);
+		c = get_next_line(fd);
+	}
+	return (0);
 }
 
 ```
